@@ -7,7 +7,7 @@ r = None
 t = None
 
 #objects
-interest_wb = xlsxwriter.Workbook(r'C:\Users\darks\git\Bank-Interest-Calculator\interest.xlsx') #making the workbook
+interest_wb = xlsxwriter.Workbook(r'(YOUR PATH)\interest.xlsx') #making the workbook
 
 # code
 def worksheet_formatter(name):
