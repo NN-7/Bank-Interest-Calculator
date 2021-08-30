@@ -1,8 +1,9 @@
 # imports
 import xlsxwriter
+from tkinter import *
 
 # variables
-p = 0
+p = None
 r = None
 t = None
 
@@ -29,7 +30,7 @@ def simple_interest(p,r,t): # defining simple interest calc func
     si_worksheet.write(4,1,str((r*t/100+1)*p))
     si_worksheet.write(5,0, '')
 
-def compound_interest(p,r,t):
+def compound_interest(p,r,t): # definining compound interest calc func
     ci_worksheet = worksheet_formatter('Compound Interest') # creating compound interest worksheet
     profit = 0
     for i in range(t+1):
@@ -42,9 +43,40 @@ def compound_interest(p,r,t):
         ci_worksheet.write(5,t+1,str(round(profit,2)))
         p += r/100*p
 
-p = int(input('Principal Amount? '))
-r = int(input('Rate? '))
-t = int(input('How long (years)? '))
-compound_interest(p,r,t)
-simple_interest(p,r,t)
-interest_wb.close()
+def compound_button():
+    p = int(principal.get(1.0, "end-1c"))
+    r = int(rate.get(1.0, "end-1c"))
+    t = int(time.get(1.0, "end-1c"))
+    compound_interest(p,r,t)
+    interest_wb.close()
+
+def simple_button():
+    p = int(principal.get(1.0, "end-1c"))
+    r = int(rate.get(1.0, "end-1c"))
+    t = int(time.get(1.0, "end-1c"))
+    simple_interest(p,r,t)
+    interest_wb.close()
+
+def main():
+    window = Tk()
+    window.geometry('250x250')
+    window.title("Bank Interest Calculator")
+    compound_btn = Button(window,text = "Compound Interest",command = compound_button)
+    compound_btn.place(x = 5,y = 5)
+    simple_btn = Button(window,text = "Simple Interest",command = simple_button)
+    simple_btn.place(x = 5,y = 35)
+    principal = Text(window, height = 1, width = 10)
+    principal.place(x = 95, y=100)
+    rate = Text(window, height = 1, width = 10)
+    rate.place(x = 95, y=125)
+    time = Text(window, height = 1, width = 10)
+    time.place(x = 95, y=150)
+    p_label = Label(window, height = 1, width = 10, text = "Principal:")
+    p_label.place(x = 17,y = 100)
+    r_label = Label(window, height = 1, width = 5, text = "Rate:")
+    r_label.place(x = 18,y = 125)
+    t_label = Label(window, height = 1, width = 5, text = "Time:")
+    t_label.place(x = 18,y = 150)
+    window.mainloop()
+
+main()
